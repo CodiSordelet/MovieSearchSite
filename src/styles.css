@@ -1,1 +1,137 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar {
+  background-color: #003051;
+}
+.navbar .navbar-brand {
+  color: #e8e8e8;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #e8e8e8;
+}
+.navbar .navbar-text {
+  color: #e8e8e8;
+}
+.navbar .navbar-nav .nav-link {
+  color: #e8e8e8;
+  border-radius: .25rem;
+  margin: 0 0.25em;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover,
+.navbar .navbar-nav .nav-link:not(.disabled):focus {
+  color: #00151d;
+}
+.navbar .navbar-nav .nav-item.active .nav-link,
+.navbar .navbar-nav .nav-item.active .nav-link:hover,
+.navbar .navbar-nav .nav-item.active .nav-link:focus,
+.navbar .navbar-nav .nav-item.show .nav-link,
+.navbar .navbar-nav .nav-item.show .nav-link:hover,
+.navbar .navbar-nav .nav-item.show .nav-link:focus {
+  color: #00151d;
+  background-color: #e8e8e8;
+}
+.navbar .navbar-toggle {
+  border-color: #e8e8e8;
+}
+.navbar .navbar-toggle:hover,
+.navbar .navbar-toggle:focus {
+  background-color: #e8e8e8;
+}
+.navbar .navbar-toggle .navbar-toggler-icon {
+  color: #e8e8e8;
+}
+.navbar .navbar-collapse,
+.navbar .navbar-form {
+  border-color: #e8e8e8;
+}
+.navbar .navbar-link {
+  color: #e8e8e8;
+}
+.navbar .navbar-link:hover {
+  color: #00151d;
+}
+
+@media (max-width: 575px) {
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #e8e8e8;
+  }
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #00151d;
+  }
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #00151d;
+    background-color: #e8e8e8;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #e8e8e8;
+  }
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #00151d;
+  }
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #00151d;
+    background-color: #e8e8e8;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #e8e8e8;
+  }
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #00151d;
+  }
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #00151d;
+    background-color: #e8e8e8;
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #e8e8e8;
+  }
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #00151d;
+  }
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #00151d;
+    background-color: #e8e8e8;
+  }
+}
+
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
+  color: #e8e8e8;
+}
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+  color: #00151d;
+}
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+  color: #00151d;
+  background-color: #e8e8e8;
+}
+
+
+.fa-star {
+    color:#e8e8e8;
+}
+
+.fa-home {
+    color:#e8e8e8;
+}
+
+.container ul li a {
+    color:#e8e8e8;
+}
+
+.jumbotron {
+    background-color: #e8e8e8!important;
+    color:#00151d!important;
+}
