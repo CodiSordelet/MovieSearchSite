@@ -23,21 +23,31 @@ body {
 
 nav {
   position: fixed;
+  top: 0%;
 }
 
 .card-edit {
   margin: 2em 2em;
-  padding: 2em 2em;
   -webkit-box-shadow: .625em .625em .3125em #888888;
 }
 
 .header {
-
   text-decoration: underline;
 }
 
 .allrows {
   background-color: #fff;
+  width: 100%;
+}
+
+
+.main-content{
+  position: relative;
+  top: 10em;
+}
+
+#searchResults {
+  display:hidden;
 }
 
 /*.container > .row {
