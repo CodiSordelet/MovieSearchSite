@@ -1,5 +1,6 @@
 body {
   background-color: #0d1c24;
+  padding-top:76px;
 }
 
 .color-carousel {
@@ -36,36 +37,47 @@ nav {
 }
 
 .allrows {
-  background-color: #fff;
+  background-color: #f8f9fa;
   width: 100%;
 }
 
-
-.main-content{
-  position: relative;
-  top: 10em;
+/*page numbers*/
+.pagination {
+  justify-content: center;
+  margin-top:15px;
 }
 
-#searchResults {
-  display:hidden;
+.pagination > li > a {
+  color:#0d1c24;
 }
 
-/*.container > .row {
-  overflow-x: scroll;
-  white-space: nowrap;
+.pagination > li > a:hover {
+  color:#0d1c24;
 }
-.container > .row > .col-lg-3 {
-  display: inline-block;
-  float: none;
-}*/
-/*
-.card-button {
-  position:relative;
-  left: 1%;
-  bottom: 1%;
-}*/
+/*end page numbers*/
 
-/*.paragraph {
-  position:relative;
-  margin: 2% 2% 2% 2%;
-}*/
+#main-content{
+  width:90%;
+  border:2px solid #f8f9fa;
+  border-radius:15px;
+}
+
+/*templates*/
+
+#template-movies {
+  margin:0 auto;
+  padding-top:15px;
+}
+
+#template-person {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
+
+#template-popularTV {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
+/*end templates*/
