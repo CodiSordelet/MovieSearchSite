@@ -52,6 +52,23 @@ function displayChange(decision){
     }
 }
 
+function getMovieDetails(id){
+    var url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var target = "#movieModal" + id;
+    getResults(url, "#movieDetails",target);
+}
+
+function getPersonDetails(id){
+    var url = "https://api.themoviedb.org/3/person/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var target = "#personModal" + id;
+    getResults(url, "#personDetails",target);
+}
+
+function getTvDetails(id){
+    var url = "https://api.themoviedb.org/3/tv/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var target = "#tvModal" + id;
+    getResults(url, "#tvDetails",target);
+}
 
 //call this method to get results
 function getResults(url,templateSelector,targetTemplate) {
@@ -123,3 +140,5 @@ function previousPage(){
         console.log(searchPageNumber);
     }
 }
+
+
