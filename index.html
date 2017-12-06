@@ -37,8 +37,6 @@
                         <a class="dropdown-item" onclick="showPopularMovies()" href="#">Popular Movies</a>
                         <a class="dropdown-item" onclick="showPopularTV()" href="#">Popular TV Shows</a>
                         <a class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -62,7 +60,7 @@
     <!--main content-->
 
     <!--page numbers-->
-    <div class="container">
+    <div class="container paginationContainer">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" onClick="previousPage()"href="#">Previous</a></li>
             <li class="page-item"><a class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
@@ -93,17 +91,75 @@
         <div class="flex-row row">
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
-                <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                <div class="thumbnail">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" onload="getMovieDetails({{id}});">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#">View More</a>
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
                         </p>
+                        <!-- Modal -->
+                        <div id="movieModal{{id}}"></div>
+                        <!--added modal-->
                     </div>
                 </div>
             </div>
             {{/results}}
+        </div>
+    </script>
+
+    <!--movie modal template-->
+    <script id="movieDetails" type="text/template">
+        <div class="modal fade" id="moreMovieDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{title}}</h4>
+                    </div>
+                    <div class="moreDetailsImage">
+                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="Card image cap" />
+                    </div>
+                    <div class="modal-body">
+                        <h5>{{tagline}}</h5>
+                        <p><a href="{{homepage}}">{{homepage}}</a></p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <br/>
+                                <h6>Production Companie(s)</h6>
+                                    {{#production_companies}}
+                                        {{name}}<br/>
+                                    {{/production_companies}} 
+                                <br/>
+                                <h6>Production Countrie(s)</h6>
+                                    {{#production_countries}}
+                                        {{name}}<br/>
+                                    {{/production_countries}}
+                                </br>
+                                <h6>Genre(s):</h6> {{#genres}}{{name}} {{/genres}}<br/>
+                            </div>
+                            <div class="col-5">
+                                <h5>Summary</h6>
+                                <p>{{overview}}</p>
+                            </div>
+                            <div class="col">
+                                </br>
+                                <h6>General Information</h6>
+                                Status: {{status}}<br/>
+                                Released: {{release_date}}<br/>
+                                Budget: ${{budget}}<br/>
+                                Revenue: ${{revenue}}<br/>
+                                Runtime: {{runtime}} minutes<br/>
+                                Language: {{original_language}}<br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
         </div>
     </script>
 
@@ -113,12 +169,15 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap"  onload="getTvDetails({{id}});">
                     <div class="caption text-center">
                         <h3>{{name}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#">View More</a>
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
                         </p>
+                        <!-- Modal -->
+                        <div id="tvModal{{id}}"></div>
+                        <!--added modal-->
                     </div>
                 </div>
             </div>
@@ -126,22 +185,123 @@
         </div>
     </script>
 
-    <!--popluar actor template-->
+    <!--tv modal template-->
+    <script id="tvDetails" type="text/template">
+        <div class="modal fade" id="moreTvDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{name}}</h4>
+                    </div>
+                    <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="moreDetailsImage">
+                                    <a href="{{homepage}}">
+                                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" />
+                                    </a>
+                                </div>
+                                <br/>
+                                <h6>Seasons</h6>
+                                {{#seasons}}
+                                    Season {{season_number}} had {{episode_count}} episodes.  It first aired {{air_date}}<br/>
+                                {{/seasons}}
+                                </p>
+                            </div>
+                            <div class="col-5">
+                                <h5>Summary</h6>
+                                <p>{{overview}}</p>
+                                <h6>General Information</h6>
+                                Status: {{status}}<br/>
+                                First Aired: {{first_air_date}}<br/>
+                                Last Aired: {{last_air_date}}<br/>
+                                Language: {{original_language}}<br/>
+                                <br/>
+                                <h6>Genre(s):</h6> 
+                                    {{#genres}}
+                                        {{name}} 
+                                    {{/genres}}<br/>
+                                <br/>
+                                <h6>Network(s)</h6>
+                                    {{#networks}}
+                                        {{name}}<br/>
+                                    {{/networks}}
+                                </br>
+                                <br/>
+                                <h6>Production Companie(s)</h6>
+                                    {{#production_companies}}
+                                        {{name}}<br/>
+                                    {{/production_companies}} 
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </script>
+
+    <!--person template-->
     <script id="person" type="text/template">
         <div class="flex-row row">
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="No image provided">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="No image provided"   onload="getPersonDetails({{id}});">
                     <div class="caption text-center">
                         <h3>{{name}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#">View More</a>
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#morePersonDetailsModal{{id}}">more info</a>
                         </p>
+                        <!-- Modal -->
+                        <div id="personModal{{id}}"></div>
+                        <!--added modal-->
                     </div>
                 </div>
             </div>
             {{/results}}
+        </div>
+    </script>
+
+    <!--person modal template-->
+    <script id="personDetails" type="text/template">
+        <div class="modal fade" id="morePersonDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{name}}</h4>
+                    </div>
+                    <div class="modal-body">                        
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                             {{biography}}
+                            </div>
+                            <div class="col-4 text-left">
+                                <div class="moreDetailsImage">
+                                    <img src="https://image.tmdb.org/t/p/w370/{{profile_path}}" height="75%" width="75%" alt="Card image cap" />
+                                </div>
+                                Born: {{birthday}}<br/>
+                                Died: {{deathday}}<br/>
+                                <br/>
+                                <p>
+                                    <a href="{{homepage}}">{{homepage}}</a><br/>
+                                    <a href="http://www.imdb.com/name/{{imdb_id}}/">Link to IMDB</a>
+                                </p>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
         </div>
     </script>
 

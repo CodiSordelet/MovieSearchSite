@@ -81,3 +81,15 @@ nav {
   padding-top:15px;
 }
 /*end templates*/
+
+.btn-secondary {
+  background-color:#0d1c24;
+  color:#f8f9fa;
+}
+
+/*media queries*/
+@media only screen and (min-width: 767px) and (max-width: 884px) {
+    body {
+        padding-top:125px;
+    }
+}
