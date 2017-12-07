@@ -36,7 +36,6 @@ function masterResults(page, decision){
     page = "&page=" + page;
     url = searchUrl + searchTerm + page;
     targetTemplate = "#template-" + decision;
-    console.log(url,id,targetTemplate);
     getResults(url,id,targetTemplate);
     displayChange(decision);
 }
@@ -70,23 +69,25 @@ function displayChange(decision){
 
 function getFavorites(){
     displayChange("favorites");
-    alert("We're in");
     var dataRef = firebase.database().ref('users/' + userId + '/favorites/');
-    var array
+    var array;
+    var textJSON = '{"favorites":[';
+    
     dataRef.on('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-        var childData = childSnapshot.val();
+        var resultId = childSnapshot.val().id;
+        var resultImg = childSnapshot.val().img;
+        var resultTitle = childSnapshot.val().title;
         
-        array = $.map(childData, function(value, index) {
-            return [value];
-        });
+        textJSON += '{"title":"' + resultTitle + '" , "img":"' + resultImg + '" , "id":"' + resultId + '"},';
 
-        console.log(array);
-        
-        var template = $("#favorites").html();
-        var html = Mustache.render(template, array);
-        $("#template-favorites").html(html);
         });
+        textJSON = textJSON.substring(0, textJSON.length - 1);
+        textJSON += ']}'
+        var JSONobject = JSON.parse(textJSON);
+        var template = $("#favorites").html();
+        var html = Mustache.render(template, JSONobject);
+        $("#template-favorites").html(html);
     });  
 }
 
@@ -117,7 +118,6 @@ function getTvDetails(id){
 //call this method to get results
 function getResults(url,templateSelector,targetTemplate) {
     $.getJSON(url, function(data) {
-        console.log(data);
         var templateName = templateSelector;
         var templateInsert = $(templateName).html();
         Mustache.parse(templateInsert);
@@ -204,7 +204,6 @@ function removeUserData(userId, id) {
 
 function writeUserData(userId, id, title, img) {
     var text = '{"title":"' + title + '" , "img":"' + img + '" , "id":"' + id + '"}';
-    console.log(text);
     var object = JSON.parse(text);
     firebase.database().ref('users/' + userId + '/favorites/' + id).set(object);
 }
