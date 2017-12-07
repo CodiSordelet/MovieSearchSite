@@ -9,97 +9,344 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/moviedb.css">
+    <link rel="stylesheet" href="assets/moviedb.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- cdns -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" type="text/javascript"></script>
+    <script type="text/template"></script>
+    <script src="moviedb.js" type="text/javascript"></script>  
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">
-            <img src="/assets/312x276-primary-green.png" alt="" height="50px" class="center-block">
+            <img src="assets/312x276-primary-green.png" alt="" height="50px" class="center-block">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a onClick="getFavorites()" class="nav-link" href="#">My Favorites</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
+                    Popular Searches
+                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" onclick="showPopularMovies()" href="#">Popular Movies</a>
+                        <a class="dropdown-item" onclick="showPopularTV()" href="#">Popular TV Shows</a>
+                        <a class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"></a>
-                </li>
             </ul>
+            
+            <div class="form-inline" style="margin-right:15px;">
+                <select class="form-control" id="searchMethod">
+                    <option>Actor Name</option>
+                    <option>Movie Title</option>
+                    <option>TV Show Title</option>
+                </select>
+            </div>
             <form class="form-inline my-2 my-lg-0">
                 <input id="search-bar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0 " onclick="userSearch()" type="submit">Search</button>
             </form>
         </div>
     </nav>
-    <div id="template-target" class="container allrows">
 
-    </div>
-    <div id="template-two" class="container allrows">
+    <!--MAIN CONTENT-->
 
+    <!--page numbers-->
+    <div class="container paginationContainer">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" onClick="previousPage()"href="#">Previous</a></li>
+            <li class="page-item"><a id="pagination1" class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
+            <li class="page-item"><a id="pagination2" class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
+            <li class="page-item"><a id="pagination3" class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
+            <li class="page-item"><a id="pagination4" class="page-link" onClick="pageTabClick(4)" href="#">4</a></li>
+            <li class="page-item"><a id="pagination5" class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" onClick="nextPage()" href="#">Next</a></li>
+        </ul>
     </div>
-    <div id="template-three" class="container allrows">
 
+    <!--target for the templates that data is inserted to-->
+    <div id="main-content" class="container allrows">
+        <a href="#" id="gridButton" class="gridButton" onclick="smallGrid()"><i class="fa fa-th"></i></a>
+		<a href="#" id="listButton" class="gridButton" onclick="largeGrid()"><i class="fa fa-th-large"></i></a>
+        <div id="template-movies" class="row allrows"></div>
+        <div id="template-popularTV" class="row allrows"></div>
+        <div id="template-person" class="row allrows"></div>
+        <div id="template-favorites" class="row allrows"></div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" type="text/javascript"></script>
-    <script id="homepage-template" type="text/template">
-        <h3 class="header">Popular Movies</h3>
-        <div class="row flex-row flex-nowrap section-title ">
+
+    <!-- Firebase INITIALIZATION -->
+    <script src="firebase-initialization.js"></script>
+
+    <!--favorites template-->
+    <script id="favorites" type="text/template">
+        <div class="flex-row row">
+            {{#favorites}}
+            <div class="col-xs-6 col-sm-4 col-lg-3">
+                <div class="thumbnail" >
+                    <img class="card-img-top" id="moviePoster" src="{{img}}" alt="Card image cap">
+                    <div class="caption text-center">
+                        <h3>{{title}}</h3>
+                    </div>
+                </div>
+            </div>
+            {{/favorites}}
+        </div>
+    </script>
+
+    <!--movie template-->
+    <script id="movies" type="text/template">
+        <div class="flex-row row">
             {{#results}}
-            <div data-uniqueId="{{id}}" class="card card-block col-sm-3 card-edit">
-                <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
-                <h3 class="card-title header"> {{title}}</h3>
+            <div class="col-xs-6 col-sm-4 col-lg-3">
+                <div class="thumbnail" >
+                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                    <div class="caption text-center">
+                        <h3>{{title}}</h3>
+                        <p>
+                            <span onmouseover="getMovieDetails({{id}})">
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}},&quot;{{title}}&quot;,&quot;https://image.tmdb.org/t/p/w370/{{poster_path}}&quot;)"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                            </span>
+                        </p>
+                        <!-- Modal -->
+                        <div class="movieModal" id="movieModal{{id}}"></div>
+                        <!--added modal-->
+                    </div>
+                </div>
             </div>
             {{/results}}
         </div>
     </script>
+
+    <!--movie modal template-->
+    <script id="movieDetails" type="text/template">
+        <div class="modal fade" id="moreMovieDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{title}}</h4>
+                    </div>
+                    <div class="moreDetailsImage" style="text-align:center">
+                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="Card image cap" />
+                    </div>
+                    <div class="modal-body" style="text-align:center">
+                        <h5>{{tagline}}</h5>
+                        <p><a href="{{homepage}}">{{homepage}}</a></p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <br/>
+                                <h6>Production Companie(s)</h6>
+                                    {{#production_companies}}
+                                        {{name}}<br/>
+                                    {{/production_companies}} 
+                                <br/>
+                                <h6>Production Countrie(s)</h6>
+                                    {{#production_countries}}
+                                        {{name}}<br/>
+                                    {{/production_countries}}
+                                </br>
+                                <h6>Genre(s):</h6> {{#genres}}{{name}} {{/genres}}<br/>
+                            </div>
+                            <div class="col-5">
+                                <h5>Summary</h6>
+                                <p>{{overview}}</p>
+                                <div id="movieModalCast{{id}}"></div>
+                            </div>
+                            <div class="col">
+                                </br>
+                                <h6>General Information</h6>
+                                Status: {{status}}<br/>
+                                Released: {{release_date}}<br/>
+                                Budget: ${{budget}}<br/>
+                                Revenue: ${{revenue}}<br/>
+                                Runtime: {{runtime}} minutes<br/>
+                                Language: {{original_language}}<br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </script>
+
+    <!--tv template-->
     <script id="popularTV" type="text/template">
-        <h3 class="homepage-header">Popular TV shows</h3>
-        <div class="row flex-row flex-nowrap section-title">
+        <div class="flex-row row">
             {{#results}}
-            <div class="card card-block col-sm-3 card-edit">
-                <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
-                <h1 class="card-title header"> {{title}}</h1>
+            <div class="col-xs-6 col-sm-4 col-lg-3">
+                <div class="thumbnail ">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                    <div class="caption text-center">
+                        <h3>{{name}}</h3>
+                        <p>
+                            <span onmouseover="getTvDetails({{id}})">
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>                        
+                            </span>
+                        </p>
+                        <!-- Modal -->
+                        <div id="tvModal{{id}}"></div>
+                        <!--added modal-->
+                    </div>
+                </div>
             </div>
             {{/results}}
         </div>
     </script>
-    <script id="popularPeople" type="text/template">
-        <h3 class="homepage-header">Popular People</h3>
-        <div class="row flex-row flex-nowrap section-title ">
-            {{#results}}
-            <div class="card card-block col-sm-3 card-edit">
-                <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="Card image cap">
-                <h3 class="card-title header"> {{name}}</h3>
-            </div>
-            {{/results}}
-        </div>
-    </script>
-    <script src="/moviedb.js" type="text/javascript"></script>
 
+    <!--tv modal template-->
+    <script id="tvDetails" type="text/template">
+        <div class="modal fade" id="moreTvDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{name}}</h4>
+                    </div>
+                    <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="moreDetailsImage">
+                                    <a href="{{homepage}}">
+                                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" />
+                                    </a>
+                                </div>
+                                <br/>
+                                <h6>Seasons</h6>
+                                {{#seasons}}
+                                    Season {{season_number}} had {{episode_count}} episodes.  It first aired {{air_date}}<br/>
+                                {{/seasons}}
+                                </p>
+                            </div>
+                            <div class="col-5">
+                                <h5>Summary</h6>
+                                <p>{{overview}}</p>
+                                <div id="tvModalCast{{id}}"></div>
+                                <h6>General Information</h6>
+                                Status: {{status}}<br/>
+                                First Aired: {{first_air_date}}<br/>
+                                Last Aired: {{last_air_date}}<br/>
+                                Language: {{original_language}}<br/>
+                                <br/>
+                                <h6>Genre(s):</h6> 
+                                    {{#genres}}
+                                        {{name}} 
+                                    {{/genres}}<br/>
+                                <br/>
+                                <h6>Network(s)</h6>
+                                    {{#networks}}
+                                        {{name}}<br/>
+                                    {{/networks}}
+                                </br>
+                                <br/>
+                                <h6>Production Companie(s)</h6>
+                                    {{#production_companies}}
+                                        {{name}}<br/>
+                                    {{/production_companies}} 
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </script>
+
+    <!--person template-->
+    <script id="person" type="text/template">
+        <div class="flex-row row">
+            {{#results}}
+            <div class="col-xs-6 col-sm-4 col-lg-3">
+                <div class="thumbnail ">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="No image provided">
+                    <div class="caption text-center">
+                        <h3>{{name}}</h3>
+                        <p>
+                            <span onmouseover="getPersonDetails({{id}})">
+                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#morePersonDetailsModal{{id}}">more info</a>
+                            </span>
+                        </p>
+                        <!-- Modal -->
+                        <div id="personModal{{id}}"></div>
+                        <!--added modal-->
+                    </div>
+                </div>
+            </div>
+            {{/results}}
+        </div>
+    </script>
+
+    <!--person modal template-->
+    <script id="personDetails" type="text/template">
+        <div class="modal fade" id="morePersonDetailsModal{{id}}" role="dialog">
+            <div class="modal-dialog modal-lg">    
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{name}}</h4>
+                    </div>
+                    <div class="modal-body">                        
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                             {{biography}}
+                            </div>
+                            <div class="col-4 text-left">
+                                <div class="moreDetailsImage">
+                                    <img src="https://image.tmdb.org/t/p/w370/{{profile_path}}" height="75%" width="75%" alt="Card image cap" />
+                                </div>
+                                Born: {{birthday}}<br/>
+                                Died: {{deathday}}<br/>
+                                <br/>
+                                <p>
+                                    <a href="{{homepage}}">{{homepage}}</a><br/>
+                                    <a href="http://www.imdb.com/name/{{imdb_id}}/">Link to IMDB</a>
+                                </p>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </script>
+
+    <!--Cast template-->
+    <script id="castTemplate" type="text/template">
+        <p>
+            <h5>Featuring</h5>
+            {{#cast}}
+            <a href="#" onClick="castMemberDetails(&quot;{{name}}&quot;)">{{name}}</a> -as- {{character}}<br/>
+            {{/cast}}
+        </p>
+    </script>
 </body>
-
 </html>

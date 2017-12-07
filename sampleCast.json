@@ -1,0 +1,79 @@
+{
+	"cast": [
+		{
+			"character": "Michonne",
+			"credit_id": "5256cb3b19c2956ff605e2c4",
+			"gender": 1,
+			"id": 82104,
+			"name": "Danai Gurira",
+			"order": 4,
+			"profile_path": "/xgo39kFf6rAynb1i9J1BeLfSXxg.jpg"
+		},
+		{
+			"character": "Negan",
+			"credit_id": "5724c3b292514155c3002fd6",
+			"gender": 2,
+			"id": 47296,
+			"name": "Jeffrey Dean Morgan",
+			"order": 16,
+			"profile_path": "/6ors2HGy8UdXm8kBx6on0HwRHB5.jpg"
+		},
+		{
+			"character": "Rick Grimes",
+			"credit_id": "5256cb3819c2956ff605df9c",
+			"gender": 2,
+			"id": 7062,
+			"name": "Andrew Lincoln",
+			"order": 0,
+			"profile_path": "/b4KqT3vy3MFurEp7q2ni1PRyDxL.jpg"
+		},
+		{
+			"character": "Carl Grimes",
+			"credit_id": "5256cb3919c2956ff605dfea",
+			"gender": 2,
+			"id": 215056,
+			"name": "Chandler Riggs",
+			"order": 6,
+			"profile_path": "/ghwQw1ysPtM8UpUsj1HzJMldhV3.jpg"
+		},
+		{
+			"character": "Carol Peletier",
+			"credit_id": "5256cb3919c2956ff605e166",
+			"gender": 1,
+			"id": 31535,
+			"name": "Melissa McBride",
+			"order": 5,
+			"profile_path": "/mWx65szXSk2iywkkKSM8tTVHap5.jpg"
+		},
+		{
+			"character": "Daryl Dixon",
+			"credit_id": "5256cb3919c2956ff605e052",
+			"gender": 2,
+			"id": 4886,
+			"name": "Norman Reedus",
+			"order": 1,
+			"profile_path": "/dtnLzCWTVOE57ELwDwp4hmIXxrW.jpg"
+		},
+		{
+			"character": "Maggie Greene",
+			"credit_id": "5256cb3919c2956ff605e0e0",
+			"gender": 1,
+			"id": 62220,
+			"name": "Lauren Cohan",
+			"order": 3,
+			"profile_path": "/5W4AV3ZXn38NlEMqPy9QPjwRRz8.jpg"
+		}
+	],
+	"crew": [
+		{
+			"credit_id": "56c24ca59251414a9200072a",
+			"department": "Production",
+			"gender": 2,
+			"id": 59287,
+			"job": "Executive Producer",
+			"name": "Gregory Nicotero",
+			"profile_path": "/tbSRk7j0hYlBWWX7QrjdOXeiMpW.jpg"
+		}
+	],
+	"id": 1402
+}

@@ -1,5 +1,6 @@
 body {
   background-color: #0d1c24;
+  padding-top:76px;
 }
 
 .color-carousel {
@@ -23,39 +24,100 @@ body {
 
 nav {
   position: fixed;
+  top: 0%;
 }
 
 .card-edit {
   margin: 2em 2em;
-  padding: 2em 2em;
   -webkit-box-shadow: .625em .625em .3125em #888888;
 }
 
 .header {
-
   text-decoration: underline;
 }
 
 .allrows {
-  background-color: #fff;
+  background-color: #f8f9fa;
+  width: 100%;
 }
 
-/*.container > .row {
-  overflow-x: scroll;
-  white-space: nowrap;
+/*page numbers*/
+.pagination {
+  justify-content: center;
+  margin-top:15px;
 }
-.container > .row > .col-lg-3 {
-  display: inline-block;
-  float: none;
-}*/
-/*
-.card-button {
-  position:relative;
-  left: 1%;
-  bottom: 1%;
-}*/
 
-/*.paragraph {
-  position:relative;
-  margin: 2% 2% 2% 2%;
-}*/
+.pagination > li > a {
+  color:#0d1c24;
+}
+
+.pagination > li > a:hover {
+  color:#0d1c24;
+}
+/*end page numbers*/
+
+#main-content{
+  width:90%;
+  border:2px solid #f8f9fa;
+  border-radius:15px;
+}
+
+/*templates*/
+#template-favorites {
+  margin:0 auto;
+  padding-top:15px;
+}
+
+#template-person {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
+#template-movies {
+  margin:0 auto;
+  padding-top:15px;
+}
+
+#template-person {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
+
+#template-popularTV {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
+/*end templates*/
+
+.btn-secondary {
+  background-color:#0d1c24;
+  color:#f8f9fa;
+}
+
+.gridButton {
+  color:#0d1c24;
+  font-size: 25px;
+  margin-right:5px;
+}
+
+.gridButton:hover{
+  color:#1bd982;
+}
+
+.page-link {
+  background-color:#f8f9fa;
+}
+
+#pagination1{
+  background-color:#0d1c24;
+  color:#f8f9fa;
+}
+
+/*media queries*/
+@media only screen and (min-width: 767px) and (max-width: 884px) {
+    body {
+        padding-top:125px;
+    }
+}
