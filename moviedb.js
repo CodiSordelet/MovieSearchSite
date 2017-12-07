@@ -21,6 +21,11 @@ function userSearch() {
             searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
             masterResults("1", "movies");
         }
+    else if(method=="TV Show Title")
+        {
+            searchUrl = "https://api.themoviedb.org/3/search/tv?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+            masterResults("1", "popularTV");
+        }    
 }
 
 function masterResults(page, decision){
@@ -30,6 +35,7 @@ function masterResults(page, decision){
     page = "&page=" + page;
     url = searchUrl + searchTerm + page;
     targetTemplate = "#template-" + decision;
+    console.log(url,id,targetTemplate);
     getResults(url,id,targetTemplate);
     displayChange(decision);
 }
@@ -56,6 +62,9 @@ function getMovieDetails(id){
     var url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
     var target = "#movieModal" + id;
     getResults(url, "#movieDetails",target);
+    var url = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=f0db803d9d2c162e59c5e507925d8caa";
+    var target = "#movieModalCast" + id;
+    getResults(url, "#castTemplate",target);
 }
 
 function getPersonDetails(id){
@@ -68,6 +77,9 @@ function getTvDetails(id){
     var url = "https://api.themoviedb.org/3/tv/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
     var target = "#tvModal" + id;
     getResults(url, "#tvDetails",target);
+    var url = "http://api.themoviedb.org/3/tv/" + id + "/credits?api_key=f0db803d9d2c162e59c5e507925d8caa";
+    var target = "#tvModalCast" + id;
+    getResults(url, "#castTemplate",target);
 }
 
 //call this method to get results
@@ -141,4 +153,26 @@ function previousPage(){
     }
 }
 
+function toggleFavorite(id){
+    var temp = "favorite"+id;
+    var element = document.getElementById(temp);
+    if(element.className=="favoriteButtonN"){
+        element.style.color = "red";
+        element.classList.add("favoriteButtonY");
+        element.classList.remove("favoriteButtonN");
+
+    }
+    else if(element.className=="favoriteButtonY"){
+        element.style.color = "#0d1c24";
+        element.classList.add("favoriteButtonN");
+        element.classList.remove("favoriteButtonY");
+    }
+}
+
+function castMemberDetails(name){
+    $( ".modalClose" ).click();
+    searchTerm = name;
+    searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+    masterResults("1", "person");
+}
 
