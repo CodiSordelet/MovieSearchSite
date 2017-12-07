@@ -63,7 +63,16 @@ nav {
 }
 
 /*templates*/
+#template-favorites {
+  margin:0 auto;
+  padding-top:15px;
+}
 
+#template-person {
+  display:none;
+  margin:0 auto;
+  padding-top:15px;
+}
 #template-movies {
   margin:0 auto;
   padding-top:15px;
