@@ -10,13 +10,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/moviedb.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">
-            <img src="/assets/312x276-primary-green.png" alt="" height="50px" class="center-block">
+            <img src="../assets/312x276-primary-green.png" alt="" height="50px" class="center-block">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -48,6 +49,7 @@
                 <select class="form-control" id="searchMethod">
                     <option>Actor Name</option>
                     <option>Movie Title</option>
+                    <option>TV Show Title</option>
                 </select>
             </div>
             <form class="form-inline my-2 my-lg-0">
@@ -86,20 +88,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" type="text/javascript"></script>
 
 
-    <!--popluar movie template-->
+    <!--movie template-->
     <script id="movies" type="text/template">
         <div class="flex-row row">
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
-                <div class="thumbnail">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" onload="getMovieDetails({{id}});">
+                <div class="thumbnail" onmouseover="getMovieDetails({{id}})" >
+                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
                         <p>
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}})"><i class="fa fa-heart" aria-hidden="true"></i></a>
                         </p>
                         <!-- Modal -->
-                        <div id="movieModal{{id}}"></div>
+                        <div class="movieModal" id="movieModal{{id}}"></div>
                         <!--added modal-->
                     </div>
                 </div>
@@ -142,6 +145,7 @@
                             <div class="col-5">
                                 <h5>Summary</h6>
                                 <p>{{overview}}</p>
+                                <div id="movieModalCast{{id}}"></div>
                             </div>
                             <div class="col">
                                 </br>
@@ -156,14 +160,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
                     </div>
                 </div>      
             </div>
         </div>
     </script>
 
-    <!--popluar tv template-->
+    <!--tv template-->
     <script id="popularTV" type="text/template">
         <div class="flex-row row">
             {{#results}}
@@ -174,6 +178,7 @@
                         <h3>{{name}}</h3>
                         <p>
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}})"><i class="fa fa-heart" aria-hidden="true"></i></a>                        
                         </p>
                         <!-- Modal -->
                         <div id="tvModal{{id}}"></div>
@@ -213,6 +218,7 @@
                             <div class="col-5">
                                 <h5>Summary</h6>
                                 <p>{{overview}}</p>
+                                <div id="tvModalCast{{id}}"></div>
                                 <h6>General Information</h6>
                                 Status: {{status}}<br/>
                                 First Aired: {{first_air_date}}<br/>
@@ -305,8 +311,18 @@
         </div>
     </script>
 
+    <!--Cast template-->
+    <script id="castTemplate" type="text/template">
+        <p>
+            <h5>Featuring</h5>
+            {{#cast}}
+            <a href="#" onClick="castMemberDetails(&quot;{{name}}&quot;)">{{name}}</a> -as- {{character}}<br/>
+            {{/cast}}
+        </p>
+    </script>
+
     <script type="text/template"></script>
-    <script src="/moviedb.js" type="text/javascript"></script>
+    <script src="../moviedb.js" type="text/javascript"></script>
 
 </body>
 
