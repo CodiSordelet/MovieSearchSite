@@ -13,14 +13,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- cdns -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" type="text/javascript"></script>
     <script type="text/template"></script>
-    <script src="moviedb.js" type="text/javascript"></script>  
+    <script src="moviedb.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -53,8 +55,13 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#"></a>
                 </li>
+                <li class="nav-item">
+                  <button id="loginButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    login
+                  </button>
+                </li>
             </ul>
-            
+
             <div class="form-inline" style="margin-right:15px;">
                 <select class="form-control" id="searchMethod">
                     <option>Actor Name</option>
@@ -84,6 +91,30 @@
         </ul>
     </div>
 
+    <!-- login modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login to access your favorites</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span>E-mail address: </span><input id="currentUserId" type="email" name="userID" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="userIdSubmit"type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <!--target for the templates that data is inserted to-->
     <div id="main-content" class="container allrows">
         <div id="template-movies" class="row allrows"></div>
@@ -94,6 +125,7 @@
 
     <!-- Firebase INITIALIZATION -->
     <script src="firebase-initialization.js"></script>
+
 
     <!--favorites template-->
     <script id="favorites" type="text/template">
@@ -139,7 +171,7 @@
     <!--movie modal template-->
     <script id="movieDetails" type="text/template">
         <div class="modal fade" id="moreMovieDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -158,7 +190,7 @@
                                 <h6>Production Companie(s)</h6>
                                     {{#production_companies}}
                                         {{name}}<br/>
-                                    {{/production_companies}} 
+                                    {{/production_companies}}
                                 <br/>
                                 <h6>Production Countrie(s)</h6>
                                     {{#production_countries}}
@@ -187,7 +219,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
@@ -204,7 +236,7 @@
                         <p>
                             <span onmouseover="getTvDetails({{id}})">
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
-                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>                        
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </span>
                         </p>
                         <!-- Modal -->
@@ -220,7 +252,7 @@
     <!--tv modal template-->
     <script id="tvDetails" type="text/template">
         <div class="modal fade" id="moreTvDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -252,9 +284,9 @@
                                 Last Aired: {{last_air_date}}<br/>
                                 Language: {{original_language}}<br/>
                                 <br/>
-                                <h6>Genre(s):</h6> 
+                                <h6>Genre(s):</h6>
                                     {{#genres}}
-                                        {{name}} 
+                                        {{name}}
                                     {{/genres}}<br/>
                                 <br/>
                                 <h6>Network(s)</h6>
@@ -266,7 +298,7 @@
                                 <h6>Production Companie(s)</h6>
                                     {{#production_companies}}
                                         {{name}}<br/>
-                                    {{/production_companies}} 
+                                    {{/production_companies}}
                                 <br/>
                             </div>
                         </div>
@@ -274,7 +306,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
@@ -306,13 +338,13 @@
     <!--person modal template-->
     <script id="personDetails" type="text/template">
         <div class="modal fade" id="morePersonDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">{{name}}</h4>
                     </div>
-                    <div class="modal-body">                        
+                    <div class="modal-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-8">
@@ -328,17 +360,18 @@
                                 <p>
                                     <a href="{{homepage}}">{{homepage}}</a><br/>
                                     <a href="http://www.imdb.com/name/{{imdb_id}}/">Link to IMDB</a>
-                                </p>                                
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
+
 
     <!--Cast template-->
     <script id="castTemplate" type="text/template">
@@ -349,5 +382,6 @@
             {{/cast}}
         </p>
     </script>
+    script
 </body>
 </html>
