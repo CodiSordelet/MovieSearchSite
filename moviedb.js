@@ -8,7 +8,7 @@ var searchTerm;
 var searchUrl;
 var searchPageNumber;
 var pageArray = [1, 2, 3, 4, 5];
-var userId = "zdowning";
+var userId = "zdowning1@gmailcom";
 
 function userSearch() {
     var method = document.getElementById("searchMethod").value;  
