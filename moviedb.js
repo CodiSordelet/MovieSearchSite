@@ -121,17 +121,14 @@ function nextPage(){
     var temp = parseInt(searchPageNumber);
     temp += 1;
     if(temp < 1){
-        searchPageNumber = "1";
-        console.log("less, now " + searchPageNumber);
+        searchPageNumber = 1;
     }
-    else if(temp > 3){
-        searchPageNumber = "3";
-        console.log("more, now " + searchPageNumber);
+    else if(temp > 5){
+        searchPageNumber = 5;
     }
     else{
         searchPageNumber = String(temp);
         masterResults(searchPageNumber, searchMethod);
-        console.log(searchPageNumber);
     }
 }
 
@@ -140,16 +137,13 @@ function previousPage(){
     temp = temp - 1;
     if(temp < 1){
         searchPageNumber = 1;
-        console.log("less, now " + searchPageNumber);
     }
-    else if(temp > 3){
-        searchPageNumber = 3;
-        console.log("more, now " + searchPageNumber);
+    else if(temp > 5){
+        searchPageNumber = 5;
     }
     else{
         searchPageNumber = String(temp);
         masterResults(searchPageNumber, searchMethod);
-        console.log(searchPageNumber);
     }
 }
 
