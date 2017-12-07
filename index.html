@@ -94,11 +94,11 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail" >
-                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" onload="getMovieDetails({{id}})">
+                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
+                            <a onClick="getMovieDetails({{id}})" class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
                             <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}})"><i class="fa fa-heart" aria-hidden="true"></i></a>
                         </p>
                         <!-- Modal -->
@@ -120,10 +120,10 @@
                     <div class="modal-header">
                         <h4 class="modal-title">{{title}}</h4>
                     </div>
-                    <div class="moreDetailsImage">
+                    <div class="moreDetailsImage" style="text-align:center">
                         <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="Card image cap" />
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="text-align:center">
                         <h5>{{tagline}}</h5>
                         <p><a href="{{homepage}}">{{homepage}}</a></p>
                     <div class="container">
@@ -173,11 +173,11 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap"  onload="getTvDetails({{id}});">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
                     <div class="caption text-center">
                         <h3>{{name}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
+                            <a onClick="getTvDetails({{id}})"class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
                             <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}})"><i class="fa fa-heart" aria-hidden="true"></i></a>                        
                         </p>
                         <!-- Modal -->
@@ -258,11 +258,11 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="No image provided"   onload="getPersonDetails({{id}});">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{profile_path}}" alt="No image provided">
                     <div class="caption text-center">
                         <h3>{{name}}</h3>
                         <p>
-                            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#morePersonDetailsModal{{id}}">more info</a>
+                            <a onClick="getPersonDetails({{id}})" class="btn btn-secondary" href="#" data-toggle="modal" data-target="#morePersonDetailsModal{{id}}">more info</a>
                         </p>
                         <!-- Modal -->
                         <div id="personModal{{id}}"></div>
