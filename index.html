@@ -93,8 +93,8 @@
         <div class="flex-row row">
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
-                <div class="thumbnail" onmouseover="getMovieDetails({{id}})" >
-                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                <div class="thumbnail" >
+                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" onload="getMovieDetails({{id}})>
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
                         <p>
