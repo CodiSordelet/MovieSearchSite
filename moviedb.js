@@ -194,7 +194,3 @@ function castMemberDetails(name){
     searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
     masterResults("1", "person");
 }
-
-function test(){
-    alert("yay");
-}
