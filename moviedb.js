@@ -7,6 +7,7 @@ $(document).ready(function() {
 var searchTerm;
 var searchUrl;
 var searchPageNumber;
+var pageArray = [1, 2, 3, 4, 5];
 var userId = "zdowning";
 
 function userSearch() {
@@ -16,16 +17,19 @@ function userSearch() {
         {
             searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
             masterResults("1", "person");
+            setPagination(1);
         }
     else if(method=="Movie Title")
         {
             searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
             masterResults("1", "movies");
+            setPagination(1);
         }
     else if(method=="TV Show Title")
         {
             searchUrl = "https://api.themoviedb.org/3/search/tv?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
             masterResults("1", "popularTV");
+            setPagination(1);
         }    
 }
 
@@ -129,12 +133,14 @@ function getResults(url,templateSelector,targetTemplate) {
 function showPopularMovies(){
     searchUrl = "https://api.themoviedb.org/3/movie/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US"
     searchTerm = "";
+    setPagination(1);
     masterResults("1", "movies");
 }
 
 function showPopularPerson(){
     searchUrl = "https://api.themoviedb.org/3/person/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
     searchTerm = "";
+    setPagination(1);
     masterResults("1", "person");
 
 }
@@ -142,12 +148,14 @@ function showPopularPerson(){
 function showPopularTV(){
     searchUrl = "https://api.themoviedb.org/3/tv/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&page=1",
     searchTerm = "";
+    setPagination(1);
     masterResults("1", "popularTV");
 }
 
 function pageTabClick(number){
     searchPageNumber = String(number);
     masterResults(number, searchMethod);
+    setPagination(number);
 }
 
 function nextPage(){
@@ -160,6 +168,7 @@ function nextPage(){
         searchPageNumber = 5;
     }
     else{
+        setPagination(temp);
         searchPageNumber = String(temp);
         masterResults(searchPageNumber, searchMethod);
     }
@@ -175,6 +184,7 @@ function previousPage(){
         searchPageNumber = 5;
     }
     else{
+        setPagination(temp);
         searchPageNumber = String(temp);
         masterResults(searchPageNumber, searchMethod);
     }
@@ -213,4 +223,30 @@ function castMemberDetails(name){
     searchTerm = name;
     searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
     masterResults("1", "person");
+}
+
+function smallGrid(){
+    $('.col-xs-6').removeClass('col-lg-3').addClass('col-lg-2'); 
+}
+
+function largeGrid(){
+    $('.col-xs-6').removeClass('col-lg-2').addClass('col-lg-3');
+}
+
+function setPagination(page){
+    console.log("in");
+    var temp;
+    for(var i=0;i<pageArray.length;i++){
+        if(pageArray[i]==page){
+            temp = "pagination"+pageArray[i];
+            document.getElementById(temp).style.color = "#f8f9fa";
+            document.getElementById(temp).style.backgroundColor = "#0d1c24";
+        }
+        else{
+            temp = "pagination"+pageArray[i];
+            document.getElementById(temp).style.color = "#0d1c24";
+            document.getElementById(temp).style.backgroundColor = "#f8f9fa";
+        }
+        console.log(temp);
+    }
 }

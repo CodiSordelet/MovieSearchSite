@@ -50,9 +50,6 @@
                         <a class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"></a>
-                </li>
             </ul>
             
             <div class="form-inline" style="margin-right:15px;">
@@ -75,17 +72,19 @@
     <div class="container paginationContainer">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" onClick="previousPage()"href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" onClick="pageTabClick(4)" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
+            <li class="page-item"><a id="pagination1" class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
+            <li class="page-item"><a id="pagination2" class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
+            <li class="page-item"><a id="pagination3" class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
+            <li class="page-item"><a id="pagination4" class="page-link" onClick="pageTabClick(4)" href="#">4</a></li>
+            <li class="page-item"><a id="pagination5" class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
             <li class="page-item"><a class="page-link" onClick="nextPage()" href="#">Next</a></li>
         </ul>
     </div>
 
     <!--target for the templates that data is inserted to-->
     <div id="main-content" class="container allrows">
+        <a href="#" id="gridButton" class="gridButton" onclick="smallGrid()"><i class="fa fa-th"></i></a>
+		<a href="#" id="listButton" class="gridButton" onclick="largeGrid()"><i class="fa fa-th-large"></i></a>
         <div id="template-movies" class="row allrows"></div>
         <div id="template-popularTV" class="row allrows"></div>
         <div id="template-person" class="row allrows"></div>
