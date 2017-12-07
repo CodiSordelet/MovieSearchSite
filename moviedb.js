@@ -147,20 +147,45 @@ function previousPage(){
     }
 }
 
-function toggleFavorite(id){
-    var temp = "favorite"+id;
+var userId = "zdowning";
+function toggleFavorite(id, title, img){
+    var temp = "favorite" + id;
     var element = document.getElementById(temp);
     if(element.className=="favoriteButtonN"){
         element.style.color = "red";
         element.classList.add("favoriteButtonY");
         element.classList.remove("favoriteButtonN");
-
+        writeUserData(userId, id, title, img);
     }
     else if(element.className=="favoriteButtonY"){
         element.style.color = "#0d1c24";
         element.classList.add("favoriteButtonN");
         element.classList.remove("favoriteButtonY");
-    }
+        removeUserData(userId, id);
+    } 
+}
+
+function removeUserData(userId, id) {
+    firebase.database().ref('users/' + userId + '/favorites/').child(id).remove();
+}
+
+function writeUserData(userId, id, title, img) {
+    console.log(userId + " " + id + " " + title + " " + img);
+    var text = '{ "title":"' + title + '" , "img":"' + img + '" }';
+    console.log(text);
+    var object = JSON.parse(text);
+    firebase.database().ref('users/' + userId + '/favorites/' + id).set(object);
+}
+
+function getFavorites(){
+    alert("We're in");
+    var dataRef = firebase.database().ref('users/' + userId + '/favorites/');
+    dataRef.on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        console.log(childData);
+        });
+    });    
 }
 
 function castMemberDetails(name){
@@ -170,3 +195,6 @@ function castMemberDetails(name){
     masterResults("1", "person");
 }
 
+function test(){
+    alert("yay");
+}
