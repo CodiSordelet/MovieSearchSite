@@ -7,6 +7,7 @@ $(document).ready(function() {
 var searchTerm;
 var searchUrl;
 var searchPageNumber;
+var userId = "zdowning";
 
 function userSearch() {
     var method = document.getElementById("searchMethod").value;  
@@ -42,20 +43,51 @@ function masterResults(page, decision){
 
 function displayChange(decision){
     if(decision=="movies"){
-    document.getElementById("template-person").style.display = "none";
-    document.getElementById("template-popularTV").style.display = "none";
-    document.getElementById("template-movies").style.display = "block";
+        document.getElementById("template-favorites").style.display = "none";
+        document.getElementById("template-person").style.display = "none";
+        document.getElementById("template-popularTV").style.display = "none";
+        document.getElementById("template-movies").style.display = "block";
     }
     else if(decision=="person"){
-    document.getElementById("template-person").style.display = "block";
-    document.getElementById("template-popularTV").style.display = "none";
-    document.getElementById("template-movies").style.display = "none";
+        document.getElementById("template-popularTV").style.display = "none";
+        document.getElementById("template-movies").style.display = "none";
+        document.getElementById("template-favorites").style.display = "none";
+        document.getElementById("template-person").style.display = "block";
     }
     else if(decision=="popularTV"){
-    document.getElementById("template-person").style.display = "none";
-    document.getElementById("template-popularTV").style.display = "block";
-    document.getElementById("template-movies").style.display = "none";
+        document.getElementById("template-person").style.display = "none";
+        document.getElementById("template-movies").style.display = "none";
+        document.getElementById("template-favorites").style.display = "none";
+        document.getElementById("template-popularTV").style.display = "block";
     }
+    else if(decision=="favorites"){
+        document.getElementById("template-person").style.display = "none";
+        document.getElementById("template-popularTV").style.display = "none";
+        document.getElementById("template-movies").style.display = "none";
+        document.getElementById("template-favorites").style.display = "block";
+    }
+}
+
+function getFavorites(){
+    displayChange("favorites");
+    alert("We're in");
+    var dataRef = firebase.database().ref('users/' + userId + '/favorites/');
+    var array
+    dataRef.on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        
+        array = $.map(childData, function(value, index) {
+            return [value];
+        });
+
+        console.log(array);
+        
+        var template = $("#favorites").html();
+        var html = Mustache.render(template, array);
+        $("#template-favorites").html(html);
+        });
+    });  
 }
 
 function getMovieDetails(id){
@@ -85,6 +117,7 @@ function getTvDetails(id){
 //call this method to get results
 function getResults(url,templateSelector,targetTemplate) {
     $.getJSON(url, function(data) {
+        console.log(data);
         var templateName = templateSelector;
         var templateInsert = $(templateName).html();
         Mustache.parse(templateInsert);
@@ -147,7 +180,7 @@ function previousPage(){
     }
 }
 
-var userId = "zdowning";
+
 function toggleFavorite(id, title, img){
     var temp = "favorite" + id;
     var element = document.getElementById(temp);
@@ -166,26 +199,14 @@ function toggleFavorite(id, title, img){
 }
 
 function removeUserData(userId, id) {
-    firebase.database().ref('users/' + userId + '/favorites/').child(id).remove();
+    firebase.database().ref('users/' + userId + '/favorites/' + id).remove();
 }
 
 function writeUserData(userId, id, title, img) {
-    console.log(userId + " " + id + " " + title + " " + img);
-    var text = '{ "title":"' + title + '" , "img":"' + img + '" }';
+    var text = '{"title":"' + title + '" , "img":"' + img + '" , "id":"' + id + '"}';
     console.log(text);
     var object = JSON.parse(text);
     firebase.database().ref('users/' + userId + '/favorites/' + id).set(object);
-}
-
-function getFavorites(){
-    alert("We're in");
-    var dataRef = firebase.database().ref('users/' + userId + '/favorites/');
-    dataRef.on('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-        var childData = childSnapshot.val();
-        console.log(childData);
-        });
-    });    
 }
 
 function castMemberDetails(name){

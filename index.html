@@ -89,10 +89,27 @@
         <div id="template-movies" class="row allrows"></div>
         <div id="template-popularTV" class="row allrows"></div>
         <div id="template-person" class="row allrows"></div>
+        <div id="template-favorites" class="row allrows"></div>
     </div>
 
     <!-- Firebase INITIALIZATION -->
     <script src="firebase-initialization.js"></script>
+
+    <!--favorites template-->
+    <script id="favorites" type="text/template">
+        <div class="flex-row row">
+            {{#items}}
+            <div class="col-xs-6 col-sm-4 col-lg-3">
+                <div class="thumbnail" >
+                    <img class="card-img-top" id="moviePoster" src="{{img}}" alt="Card image cap">
+                    <div class="caption text-center">
+                        <h3>{{title}}</h3>
+                    </div>
+                </div>
+            </div>
+            {{/items}}
+        </div>
+    </script>
 
     <!--movie template-->
     <script id="movies" type="text/template">
@@ -106,7 +123,7 @@
                         <p>
                             <span onmouseover="getMovieDetails({{id}})">
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreMovieDetailsModal{{id}}">more info</a>
-                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}},&quot;{{title}}&quot;,&quot;{{poster_path}}&quot;)"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite({{id}},&quot;{{title}}&quot;,&quot;https://image.tmdb.org/t/p/w370/{{poster_path}}&quot;)"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </span>
                         </p>
                         <!-- Modal -->
