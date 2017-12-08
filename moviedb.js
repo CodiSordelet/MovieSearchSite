@@ -18,41 +18,41 @@ $(document).ready(function() {
         return re.test(email);
     }
 
-    function submitLogin(){
+    $(document).delegate("#userIdLogin", "click", function(event){
         var userInput = document.getElementById("currentLoginUserId").value;
-        var check = checkForUser(userInput);    
+        userInput = userInput.replace(/\./g,'')
+        var check = userArray.indexOf(userInput);   
         if(check > -1){
-            userInput = userInput.replace(/\./g,'')
+            console.log("success");
             userId=userInput;
         }
         else{
             alert("User Not Found");
         }
-    }
-
-    $("#userIdSubmit").click(function(){
-        alert("submit");
-            var temp = document.getElementById("currentNewUserId").value;
-            var emailCheck = validateEmail(temp);
-            if(emailCheck==true){
-                temp = temp.replace(/\./g,'');        
-                var check = userArray.indexOf(temp);
-                if(check > -1){
-                    alert("User already exists, please login");
-                }
-                else if(check == -1){
-                    var text = '{"userIds":"' + temp + '"}';
-                    var object = JSON.parse(text);
-                    firebase.database().ref('userIds/userlist').push(object);
-                }
+    });
+    
+    $(document).delegate("#userIdSubmit", "click", function(event){
+        var temp = document.getElementById("currentNewUserId").value;
+        var emailCheck = validateEmail(temp);
+        if(emailCheck==true){
+            temp = temp.replace(/\./g,'');        
+            var check = userArray.indexOf(temp);
+            if(check > -1){
+                alert("User already exists, please login");
             }
-            else if(temp == ""){
-                    alert("Email field cannot be blank");
+            else if(check == -1){
+                var text = '{"userIds":"' + temp + '"}';
+                var object = JSON.parse(text);
+                firebase.database().ref('userIds/userlist').push(object);
             }
-            else{
-                alert("Invalid Email Address");
-            }
-    })
+        }
+        else if(temp == ""){
+                alert("Email field cannot be blank");
+        }
+        else{
+            alert("Invalid Email Address");
+        }
+    });
 
 });
 
@@ -84,14 +84,6 @@ function userSearch() {
             setPagination(1);
         }    
 }
-
-$("#loginButton").click(function() { 
-    $("#loginModal").modal("show")     
-});
-
-$("#newUserButton").click(function() { 
-    $("#newUserModal").modal("show")     
-});
 
 function masterResults(page, decision){
     searchPageNumber = page;
@@ -294,7 +286,6 @@ function largeGrid(){
 }
 
 function setPagination(page){
-    console.log("in");
     var temp;
     for(var i=0;i<pageArray.length;i++){
         if(pageArray[i]==page){
@@ -307,6 +298,5 @@ function setPagination(page){
             document.getElementById(temp).style.color = "#0d1c24";
             document.getElementById(temp).style.backgroundColor = "#f8f9fa";
         }
-        console.log(temp);
     }
 }
