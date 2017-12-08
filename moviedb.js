@@ -25,6 +25,7 @@ $(document).ready(function() {
         if(check > -1){
             console.log("success");
             userId=userInput;
+            alert("Successfully Logged In");
         }
         else{
             alert("User Not Found");
@@ -41,9 +42,11 @@ $(document).ready(function() {
                 alert("User already exists, please login");
             }
             else if(check == -1){
+                userId=temp;
                 var text = '{"userIds":"' + temp + '"}';
                 var object = JSON.parse(text);
                 firebase.database().ref('userIds/userlist').push(object);
+                alert("Successfully Added User and Logged In");
             }
         }
         else if(temp == ""){
