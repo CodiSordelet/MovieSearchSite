@@ -3,7 +3,6 @@
 $(document).ready(function() {
     showPopularMovies();
 
-
     $("#homeButton").click(function() {
           $("#currentPage").html("Popular Movies");
         showPopularMovies();
