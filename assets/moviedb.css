@@ -1,6 +1,8 @@
 body {
-  background-color: #0d1c24;
+  background-color: rgb(58, 108, 173);
   padding-top:76px;
+  font-family: 'Oswald', sans-serif;
+
 }
 
 .color-carousel {
@@ -113,6 +115,16 @@ nav {
 #pagination1{
   background-color:#0d1c24;
   color:#f8f9fa;
+}
+
+#successfulLogin {
+  !important display: none   !important;
+}
+
+
+#currentPage {
+  position: absolute;
+  left: 45%;
 }
 
 /*media queries*/

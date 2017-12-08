@@ -2,17 +2,46 @@
 /*onload functions*/
 $(document).ready(function() {
     showPopularMovies();
+
+
+    $("#homeButton").click(function() {
+          $("#currentPage").html("Popular Movies");
+        showPopularMovies();
+        $("#pageNumberContainer").show();
+        $("#main-content").css("top","0em");
+
+    })
+
+    $("#favoritesPageButton").click(function() {
+        $("#currentPage").html("Favorites");
+        $("#pageNumberContainer").hide();
+        $("#main-content").css("position","relative");
+        $("#main-content").css("top","3em");
+    });
+
+    $("#popularMoviesitem").click(function() {
+        $("#currentPage").html("Popular Movies");
+    });
+
+    $("#popularTVitem").click(function() {
+        $("#currentPage").html("Popular TV Shows");
+    });
+
+    $("#popularActorsItem").click(function() {
+        $("#currentPage").html("Popular Actors");
+    });
+
     var userArray = [];
 
-    var dataRef = firebase.database().ref('userIds/userlist');    
+    var dataRef = firebase.database().ref('userIds/userlist');
             dataRef.on('value', function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
             var resultId = childSnapshot.val().userIds;
             userArray.push(resultId);
         });
-    }); 
+    });
 
-    
+
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -21,22 +50,22 @@ $(document).ready(function() {
     $(document).delegate("#userIdLogin", "click", function(event){
         var userInput = document.getElementById("currentLoginUserId").value;
         userInput = userInput.replace(/\./g,'')
-        var check = userArray.indexOf(userInput);   
+        var check = userArray.indexOf(userInput);
         if(check > -1){
             console.log("success");
             userId=userInput;
-            alert("Successfully Logged In");
+          // $("#successfulLogin").alert();
         }
         else{
             alert("User Not Found");
         }
     });
-    
+
     $(document).delegate("#userIdSubmit", "click", function(event){
         var temp = document.getElementById("currentNewUserId").value;
         var emailCheck = validateEmail(temp);
         if(emailCheck==true){
-            temp = temp.replace(/\./g,'');        
+            temp = temp.replace(/\./g,'');
             var check = userArray.indexOf(temp);
             if(check > -1){
                 alert("User already exists, please login");
@@ -66,7 +95,7 @@ var pageArray = [1, 2, 3, 4, 5];
 var userId = "zdowning1@gmailcom";
 
 function userSearch() {
-    var method = document.getElementById("searchMethod").value;  
+    var method = document.getElementById("searchMethod").value;
     searchTerm = document.getElementById("search-bar").value;
     if(method=="Actor Name")
         {
@@ -85,7 +114,7 @@ function userSearch() {
             searchUrl = "https://api.themoviedb.org/3/search/tv?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
             masterResults("1", "popularTV");
             setPagination(1);
-        }    
+        }
 }
 
 function masterResults(page, decision){
@@ -131,13 +160,13 @@ function getFavorites(){
     var dataRef = firebase.database().ref('users/' + userId + '/favorites/');
     var array;
     var textJSON = '{"favorites":[';
-    
+
     dataRef.on('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
         var resultId = childSnapshot.val().id;
         var resultImg = childSnapshot.val().img;
         var resultTitle = childSnapshot.val().title;
-        
+
         textJSON += '{"title":"' + resultTitle + '" , "img":"' + resultImg + '" , "id":"' + resultId + '"},';
 
         });
@@ -147,7 +176,7 @@ function getFavorites(){
         var template = $("#favorites").html();
         var html = Mustache.render(template, JSONobject);
         $("#template-favorites").html(html);
-    });  
+    });
 }
 
 function getMovieDetails(id){
@@ -260,7 +289,7 @@ function toggleFavorite(id, title, img){
         element.classList.add("favoriteButtonN");
         element.classList.remove("favoriteButtonY");
         removeUserData(userId, id);
-    } 
+    }
 }
 
 function removeUserData(userId, id) {
@@ -281,7 +310,7 @@ function castMemberDetails(name){
 }
 
 function smallGrid(){
-    $('.col-xs-6').removeClass('col-lg-3').addClass('col-lg-2'); 
+    $('.col-xs-6').removeClass('col-lg-3').addClass('col-lg-2');
 }
 
 function largeGrid(){

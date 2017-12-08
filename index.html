@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/moviedb.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
     <!-- cdns -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -20,7 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" type="text/javascript"></script>
     <script type="text/template"></script>
-    <script src="moviedb.js" type="text/javascript"></script>  
+    <script src="moviedb.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -35,33 +36,34 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a id="homeButton" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a onClick="getFavorites()" class="nav-link" href="#">My Favorites</a>
+                    <a id="favoritesPageButton" onClick="getFavorites()" class="nav-link" href="#">My Favorites</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Popular Searches
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" onclick="showPopularMovies()" href="#">Popular Movies</a>
-                        <a class="dropdown-item" onclick="showPopularTV()" href="#">Popular TV Shows</a>
-                        <a class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
+                        <a  id="popularMoviesitem" class="dropdown-item" onclick="showPopularMovies()" href="#">Popular Movies</a>
+                        <a  id="popularTVitem" class="dropdown-item" onclick="showPopularTV()" href="#">Popular TV Shows</a>
+                        <a  id="popularActorsItem" class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                  <button id="loginButton" style="margin-right:10px;" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">
+                    <button id="loginButton" style="margin-right:10px;" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">
                     login
                   </button>
                 </li>
                 <li class="nav-item">
-                  <button id="newUserButton" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#newUserModal">
+                    <button id="newUserButton" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#newUserModal">
                     New User
                   </button>
                 </li>
             </ul>
-            
+                              <h1 id="currentPage">Popular Movies</h1>
+
             <div class="form-inline" style="margin-right:15px;">
                 <select class="form-control" id="searchMethod">
                     <option>Actor Name</option>
@@ -79,9 +81,9 @@
     <!--MAIN CONTENT-->
 
     <!--page numbers-->
-    <div class="container paginationContainer">
+    <div id="pageNumberContainer" class="container paginationContainer">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" onClick="previousPage()"href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" onClick="previousPage()" href="#">Previous</a></li>
             <li class="page-item"><a id="pagination1" class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
             <li class="page-item"><a id="pagination2" class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
             <li class="page-item"><a id="pagination3" class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
@@ -93,50 +95,57 @@
 
     <!-- login modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Login to access your favorites</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login to access your favorites</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-            <span>E-mail address: </span><input id="currentLoginUserId" type="email" name="userID" >
-          </div>
-          <div class="modal-footer">
-            <button id="userIdLoginClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="userIdLogin" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
-          </div>
+                </div>
+                <div class="modal-body">
+                    <span>E-mail address: </span><input id="currentLoginUserId" type="email" name="userID">
+                </div>
+                <div class="modal-footer">
+                    <button id="userIdLoginClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="userIdLogin" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- new user modal -->
     <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Register New User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Register New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-            <span>E-mail address: </span><input id="currentNewUserId" type="email" name="userID" >
-          </div>
-          <div class="modal-footer">
-            <button id="userIdSubmitClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="userIdSubmit"type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
-          </div>
+                </div>
+                <div class="modal-body">
+                    <span>E-mail address: </span><input id="currentNewUserId" type="email" name="userID">
+                </div>
+                <div class="modal-footer">
+                    <button id="userIdSubmitClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="userIdSubmit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+
+
+    <!--login success alert-->
+    <!-- <div id="succesfulLogin" class="alert alert-success fade in" role="alert">
+        <strong>Well Done!</strong> You Successfully Logged In!
+        <a href="#" class="alert-link"></a>.
+    </div> -->
 
     <!--target for the templates that data is inserted to-->
     <div id="main-content" class="container allrows">
         <a href="#" id="gridButton" class="gridButton" onclick="smallGrid()"><i class="fa fa-th"></i></a>
-		<a href="#" id="listButton" class="gridButton" onclick="largeGrid()"><i class="fa fa-th-large"></i></a>
+        <a href="#" id="listButton" class="gridButton" onclick="largeGrid()"><i class="fa fa-th-large"></i></a>
         <div id="template-movies" class="row allrows"></div>
         <div id="template-popularTV" class="row allrows"></div>
         <div id="template-person" class="row allrows"></div>
@@ -151,7 +160,7 @@
         <div class="flex-row row">
             {{#favorites}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
-                <div class="thumbnail" >
+                <div class="thumbnail">
                     <img class="card-img-top" id="moviePoster" src="{{img}}" alt="Card image cap">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
@@ -167,7 +176,7 @@
         <div class="flex-row row">
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
-                <div class="thumbnail" >
+                <div class="thumbnail">
                     <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
@@ -190,11 +199,12 @@
     <!--movie modal template-->
     <script id="movieDetails" type="text/template">
         <div class="modal fade" id="moreMovieDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{title}}</h4>
+                        <h4 class="modal-title">{{title}}  </h4>
+                        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{vote_average}} <i class="fa fa-star" aria-hidden="true"></i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Genres: {{#genres}} {{name}}</span>  {{/genres}}</p>
                     </div>
                     <div class="moreDetailsImage" style="text-align:center">
                         <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="Card image cap" />
@@ -202,24 +212,20 @@
                     <div class="modal-body" style="text-align:center">
                         <h5>{{tagline}}</h5>
                         <p><a href="{{homepage}}">{{homepage}}</a></p>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <br/>
-                                <h6>Production Companie(s)</h6>
-                                    {{#production_companies}}
-                                        {{name}}<br/>
-                                    {{/production_companies}} 
-                                <br/>
-                                <h6>Production Countrie(s)</h6>
-                                    {{#production_countries}}
-                                        {{name}}<br/>
-                                    {{/production_countries}}
-                                </br>
-                                <h6>Genre(s):</h6> {{#genres}}{{name}} {{/genres}}<br/>
-                            </div>
-                            <div class="col-5">
-                                <h5>Summary</h6>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <br/>
+                                    <h6>Production Companie(s)</h6> {{#production_companies}} {{name}}
+                                    <br/> {{/production_companies}}
+                                    <br/>
+                                    <h6>Production Countrie(s)</h6> {{#production_countries}} {{name}}
+                                    <br/> {{/production_countries}}
+                                    </br>
+                                    <h6>Genre(s):</h6> {{#genres}}{{name}} {{/genres}}<br/>
+                                </div>
+                                <div class="col-5">
+                                    <h5>Summary</h6>
                                 <p>{{overview}}</p>
                                 <div id="movieModalCast{{id}}"></div>
                             </div>
@@ -238,7 +244,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
@@ -255,7 +261,7 @@
                         <p>
                             <span onmouseover="getTvDetails({{id}})">
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
-                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>                        
+                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </span>
                         </p>
                         <!-- Modal -->
@@ -271,11 +277,11 @@
     <!--tv modal template-->
     <script id="tvDetails" type="text/template">
         <div class="modal fade" id="moreTvDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{name}}</h4>
+                        <h4 class="modal-title">{{name}}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{vote_average}} <i class="fa fa-star" aria-hidden="true"></i> Genres: {{#genres}} &nbsp; &nbsp; &nbsp; <span>{{name}}</span>  {{/genres}}</h4>
                     </div>
                     <div class="modal-body">
                     <div class="container">
@@ -303,9 +309,9 @@
                                 Last Aired: {{last_air_date}}<br/>
                                 Language: {{original_language}}<br/>
                                 <br/>
-                                <h6>Genre(s):</h6> 
+                                <h6>Genre(s):</h6>
                                     {{#genres}}
-                                        {{name}} 
+                                        {{name}}
                                     {{/genres}}<br/>
                                 <br/>
                                 <h6>Network(s)</h6>
@@ -317,7 +323,7 @@
                                 <h6>Production Companie(s)</h6>
                                     {{#production_companies}}
                                         {{name}}<br/>
-                                    {{/production_companies}} 
+                                    {{/production_companies}}
                                 <br/>
                             </div>
                         </div>
@@ -325,7 +331,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
@@ -357,13 +363,13 @@
     <!--person modal template-->
     <script id="personDetails" type="text/template">
         <div class="modal fade" id="morePersonDetailsModal{{id}}" role="dialog">
-            <div class="modal-dialog modal-lg">    
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">{{name}}</h4>
                     </div>
-                    <div class="modal-body">                        
+                    <div class="modal-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-8">
@@ -379,14 +385,14 @@
                                 <p>
                                     <a href="{{homepage}}">{{homepage}}</a><br/>
                                     <a href="http://www.imdb.com/name/{{imdb_id}}/">Link to IMDB</a>
-                                </p>                                
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </script>
@@ -394,11 +400,12 @@
     <!--Cast template-->
     <script id="castTemplate" type="text/template">
         <p>
-            <h5>Featuring</h5>
-            {{#cast}}
-            <a href="#" onClick="castMemberDetails(&quot;{{name}}&quot;)">{{name}}</a> -as- {{character}}<br/>
-            {{/cast}}
-        </p>
+            <h5>Featuring</h5> {{#cast}}
+                                    <a href="#" onClick="castMemberDetails(&quot;{{name}}&quot;)">{{name}}</a> -as- {{character}}<br/> {{/cast}}
+                                    </p>
     </script>
+
+
 </body>
+
 </html>
