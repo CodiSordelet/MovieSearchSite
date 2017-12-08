@@ -123,9 +123,12 @@ nav {
 
 
 #currentPage {
-  position: absolute;
-  left: 45%;
+  position: relative;
+
+  font-size: 3em;
 }
+
+
 
 /*media queries*/
 @media only screen and (min-width: 767px) and (max-width: 884px) {
