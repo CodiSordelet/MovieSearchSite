@@ -1,6 +1,6 @@
 body {
   background-color: rgb(58, 108, 173);
-  padding-top:76px;
+  padding-top:100px;
   font-family: 'Oswald', sans-serif;
 
 }
@@ -101,7 +101,7 @@ nav {
 .gridButton {
   color:#0d1c24;
   font-size: 25px;
-  margin-right:5px;
+  margin-right:0;
 }
 
 .gridButton:hover{

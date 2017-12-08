@@ -61,12 +61,7 @@
                     New User
                   </button>
                 </li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li>
-                  <h1 id="currentPage">Popular Movies</h1>
-                </li>
             </ul>
-
 
             <div class="form-inline" style="margin-right:15px;">
                 <select class="form-control" id="searchMethod">
@@ -84,18 +79,7 @@
 
     <!--MAIN CONTENT-->
 
-    <!--page numbers-->
-    <div id="pageNumberContainer" class="container paginationContainer">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" onClick="previousPage()" href="#">Previous</a></li>
-            <li class="page-item"><a id="pagination1" class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
-            <li class="page-item"><a id="pagination2" class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
-            <li class="page-item"><a id="pagination3" class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
-            <li class="page-item"><a id="pagination4" class="page-link" onClick="pageTabClick(4)" href="#">4</a></li>
-            <li class="page-item"><a id="pagination5" class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" onClick="nextPage()" href="#">Next</a></li>
-        </ul>
-    </div>
+    
 
     <!-- login modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -139,15 +123,23 @@
         </div>
     </div>
 
-
-    <!--login success alert-->
-    <!-- <div id="succesfulLogin" class="alert alert-success fade in" role="alert">
-        <strong>Well Done!</strong> You Successfully Logged In!
-        <a href="#" class="alert-link"></a>.
-    </div> -->
-
     <!--target for the templates that data is inserted to-->
     <div id="main-content" class="container allrows">
+        <h3 id="currentPage" style="text-align:center">Popular Movies</h3>
+
+        <!--page numbers-->
+            <div id="pageNumberContainer" class="container paginationContainer">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" onClick="previousPage()" href="#">Previous</a></li>
+                    <li class="page-item"><a id="pagination1" class="page-link" onClick="pageTabClick(1)" href="#">1</a></li>
+                    <li class="page-item"><a id="pagination2" class="page-link" onClick="pageTabClick(2)" href="#">2</a></li>
+                    <li class="page-item"><a id="pagination3" class="page-link" onClick="pageTabClick(3)" href="#">3</a></li>
+                    <li class="page-item"><a id="pagination4" class="page-link" onClick="pageTabClick(4)" href="#">4</a></li>
+                    <li class="page-item"><a id="pagination5" class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" onClick="nextPage()" href="#">Next</a></li>
+                </ul>
+            </div>
+
         <a href="#" id="gridButton" class="gridButton" onclick="smallGrid()"><i class="fa fa-th"></i></a>
         <a href="#" id="listButton" class="gridButton" onclick="largeGrid()"><i class="fa fa-th-large"></i></a>
         <div id="template-movies" class="row allrows"></div>
@@ -265,7 +257,6 @@
                         <p>
                             <span onmouseover="getTvDetails({{id}})">
                             <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#moreTvDetailsModal{{id}}">more info</a>
-                            <a class="favoriteButtonN" style="color:#0d1c24;" href="#" id="favorite{{id}}" onClick="toggleFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></a>
                             </span>
                         </p>
                         <!-- Modal -->
