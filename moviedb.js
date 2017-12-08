@@ -21,14 +21,20 @@ $(document).ready(function() {
 
     $("#popularMoviesitem").click(function() {
         $("#currentPage").html("Popular Movies");
+        $("#pageNumberContainer").show();
+        $("#main-content").css("top","0em");
     });
 
     $("#popularTVitem").click(function() {
         $("#currentPage").html("Popular TV Shows");
+        $("#pageNumberContainer").show();
+        $("#main-content").css("top","0em");
     });
 
     $("#popularActorsItem").click(function() {
         $("#currentPage").html("Popular Actors");
+        $("#pageNumberContainer").show();
+        $("#main-content").css("top","0em");
     });
 
     var userArray = [];
