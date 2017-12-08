@@ -50,6 +50,16 @@
                         <a class="dropdown-item" onclick="showPopularPerson()" href="#">Popular Actors</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                  <button id="loginButton" style="margin-right:10px;" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">
+                    login
+                  </button>
+                </li>
+                <li class="nav-item">
+                  <button id="newUserButton" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#newUserModal">
+                    New User
+                  </button>
+                </li>
             </ul>
             
             <div class="form-inline" style="margin-right:15px;">
@@ -79,6 +89,48 @@
             <li class="page-item"><a id="pagination5" class="page-link" onClick="pageTabClick(5)" href="#">5</a></li>
             <li class="page-item"><a class="page-link" onClick="nextPage()" href="#">Next</a></li>
         </ul>
+    </div>
+
+    <!-- login modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login to access your favorites</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span>E-mail address: </span><input id="currentLoginUserId" type="email" name="userID" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="userIdSubmit" type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- new user modal -->
+    <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Register New User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span>E-mail address: </span><input id="currentNewUserId" type="email" name="userID" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="userIdSubmit"type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!--target for the templates that data is inserted to-->
