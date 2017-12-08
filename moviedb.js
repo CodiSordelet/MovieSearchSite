@@ -2,6 +2,61 @@
 /*onload functions*/
 $(document).ready(function() {
     showPopularMovies();
+    var userArray = [];
+
+    var dataRef = firebase.database().ref('userIds/userlist');    
+            dataRef.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+            var resultId = childSnapshot.val().userIds;
+            userArray.push(resultId);
+        });
+    }); 
+
+    
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    $(document).delegate("#userIdLogin", "click", function(event){
+        var userInput = document.getElementById("currentLoginUserId").value;
+        userInput = userInput.replace(/\./g,'')
+        var check = userArray.indexOf(userInput);   
+        if(check > -1){
+            console.log("success");
+            userId=userInput;
+            alert("Successfully Logged In");
+        }
+        else{
+            alert("User Not Found");
+        }
+    });
+    
+    $(document).delegate("#userIdSubmit", "click", function(event){
+        var temp = document.getElementById("currentNewUserId").value;
+        var emailCheck = validateEmail(temp);
+        if(emailCheck==true){
+            temp = temp.replace(/\./g,'');        
+            var check = userArray.indexOf(temp);
+            if(check > -1){
+                alert("User already exists, please login");
+            }
+            else if(check == -1){
+                userId=temp;
+                var text = '{"userIds":"' + temp + '"}';
+                var object = JSON.parse(text);
+                firebase.database().ref('userIds/userlist').push(object);
+                alert("Successfully Added User and Logged In");
+            }
+        }
+        else if(temp == ""){
+                alert("Email field cannot be blank");
+        }
+        else{
+            alert("Invalid Email Address");
+        }
+    });
+
 });
 
 var searchTerm;
@@ -221,7 +276,7 @@ function writeUserData(userId, id, title, img) {
 function castMemberDetails(name){
     $( ".modalClose" ).click();
     searchTerm = name;
-    searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+    searchUrl = "http://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
     masterResults("1", "person");
 }
 
@@ -234,7 +289,6 @@ function largeGrid(){
 }
 
 function setPagination(page){
-    console.log("in");
     var temp;
     for(var i=0;i<pageArray.length;i++){
         if(pageArray[i]==page){
@@ -247,6 +301,5 @@ function setPagination(page){
             document.getElementById(temp).style.color = "#0d1c24";
             document.getElementById(temp).style.backgroundColor = "#f8f9fa";
         }
-        console.log(temp);
     }
 }
