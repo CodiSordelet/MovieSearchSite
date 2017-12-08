@@ -91,6 +91,10 @@ $(document).ready(function() {
         }
     });
 
+    $("#searchboom").click(function() {
+      $("#currentPage").html("Results");
+    })
+
 });
 
 var searchTerm;
@@ -295,6 +299,11 @@ function toggleFavorite(id, title, img){
         element.classList.remove("favoriteButtonY");
         removeUserData(userId, id);
     }
+}
+
+function removeFavorite(temp){
+    removeUserData(userId,temp);
+    document.getElementById("favoritesPageButton").click();
 }
 
 function removeUserData(userId, id) {

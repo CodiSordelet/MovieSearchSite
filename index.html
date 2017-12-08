@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a id="homeButton" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a id="homeButton" class="nav-link" href="#" onClick="showPopularMovies()">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a id="favoritesPageButton" onClick="getFavorites()" class="nav-link" href="#">My Favorites</a>
@@ -72,7 +72,7 @@
             </div>
             <form class="form-inline my-2 my-lg-0">
                 <input id="search-bar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 " onclick="userSearch()" type="submit">Search</button>
+                <button id="searchboom" class="btn btn-outline-success my-2 my-sm-0 " onclick="userSearch()" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -157,9 +157,10 @@
             {{#favorites}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail">
-                    <img class="card-img-top" id="moviePoster" src="{{img}}" alt="Card image cap">
+                    <img class="card-img-top" id="moviePoster" src="{{img}}" alt="No Image Provided">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
+                        <button id="remove" type="button" class="btn btn-secondary" onClick="removeFavorite({{id}})">Remove</button>
                     </div>
                 </div>
             </div>
@@ -173,7 +174,7 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail">
-                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                    <img class="card-img-top" id="moviePoster" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="No Image Provided">
                     <div class="caption text-center">
                         <h3>{{title}}</h3>
                         <p>
@@ -203,7 +204,7 @@
                         <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{vote_average}} <i class="fa fa-star" aria-hidden="true"></i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Genres: {{#genres}} {{name}}</span>  {{/genres}}</p>
                     </div>
                     <div class="moreDetailsImage" style="text-align:center">
-                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="Card image cap" />
+                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" height="50%" width="50%" alt="No Image Provided" />
                     </div>
                     <div class="modal-body" style="text-align:center">
                         <h5>{{tagline}}</h5>
@@ -251,7 +252,7 @@
             {{#results}}
             <div class="col-xs-6 col-sm-4 col-lg-3">
                 <div class="thumbnail ">
-                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap">
+                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="No Image Provided">
                     <div class="caption text-center">
                         <h3>{{name}}</h3>
                         <p>
@@ -284,7 +285,7 @@
                             <div class="col-7">
                                 <div class="moreDetailsImage">
                                     <a href="{{homepage}}">
-                                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="Card image cap" />
+                                        <img src="https://image.tmdb.org/t/p/w370/{{poster_path}}" alt="No Image Provided" />
                                     </a>
                                 </div>
                                 <br/>
@@ -372,7 +373,7 @@
                             </div>
                             <div class="col-4 text-left">
                                 <div class="moreDetailsImage">
-                                    <img src="https://image.tmdb.org/t/p/w370/{{profile_path}}" height="75%" width="75%" alt="Card image cap" />
+                                    <img src="https://image.tmdb.org/t/p/w370/{{profile_path}}" height="75%" width="75%" alt="No Image Provided" />
                                 </div>
                                 Born: {{birthday}}<br/>
                                 Died: {{deathday}}<br/>
