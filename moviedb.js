@@ -215,6 +215,7 @@ function getTvDetails(id){
 //call this method to get results
 function getResults(url,templateSelector,targetTemplate) {
     $.getJSON(url, function(data) {
+        console.log(data);
         var templateName = templateSelector;
         var templateInsert = $(templateName).html();
         Mustache.parse(templateInsert);
