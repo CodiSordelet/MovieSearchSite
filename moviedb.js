@@ -108,19 +108,19 @@ function userSearch() {
     searchTerm = document.getElementById("search-bar").value;
     if(method=="Actor Name")
         {
-            searchUrl = "https://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+            searchUrl = "https://api.themoviedb.org/3/search/person?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US&query=";
             masterResults("1", "person");
             setPagination(1);
         }
     else if(method=="Movie Title")
         {
-            searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+            searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US&query=";
             masterResults("1", "movies");
             setPagination(1);
         }
     else if(method=="TV Show Title")
         {
-            searchUrl = "https://api.themoviedb.org/3/search/tv?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+            searchUrl = "https://api.themoviedb.org/3/search/tv?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US&query=";
             masterResults("1", "popularTV");
             setPagination(1);
         }
@@ -189,25 +189,25 @@ function getFavorites(){
 }
 
 function getMovieDetails(id){
-    var url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US";
     var target = "#movieModal" + id;
     getResults(url, "#movieDetails",target);
-    var url = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=f0db803d9d2c162e59c5e507925d8caa";
+    var url = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=b64325c8580376f674705f28d7f0d1fe";
     var target = "#movieModalCast" + id;
     getResults(url, "#castTemplate",target);
 }
 
 function getPersonDetails(id){
-    var url = "https://api.themoviedb.org/3/person/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var url = "https://api.themoviedb.org/3/person/" + id + "?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US";
     var target = "#personModal" + id;
     getResults(url, "#personDetails",target);
 }
 
 function getTvDetails(id){
-    var url = "https://api.themoviedb.org/3/tv/" + id + "?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    var url = "https://api.themoviedb.org/3/tv/" + id + "?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US";
     var target = "#tvModal" + id;
     getResults(url, "#tvDetails",target);
-    var url = "http://api.themoviedb.org/3/tv/" + id + "/credits?api_key=f0db803d9d2c162e59c5e507925d8caa";
+    var url = "http://api.themoviedb.org/3/tv/" + id + "/credits?api_key=b64325c8580376f674705f28d7f0d1fe";
     var target = "#tvModalCast" + id;
     getResults(url, "#castTemplate",target);
 }
@@ -224,14 +224,14 @@ function getResults(url,templateSelector,targetTemplate) {
 }
 
 function showPopularMovies(){
-    searchUrl = "https://api.themoviedb.org/3/movie/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US"
+    searchUrl = "https://api.themoviedb.org/3/movie/popular?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US"
     searchTerm = "";
     setPagination(1);
     masterResults("1", "movies");
 }
 
 function showPopularPerson(){
-    searchUrl = "https://api.themoviedb.org/3/person/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US";
+    searchUrl = "https://api.themoviedb.org/3/person/popular?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US";
     searchTerm = "";
     setPagination(1);
     masterResults("1", "person");
@@ -239,7 +239,7 @@ function showPopularPerson(){
 }
 
 function showPopularTV(){
-    searchUrl = "https://api.themoviedb.org/3/tv/popular?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&page=1",
+    searchUrl = "https://api.themoviedb.org/3/tv/popular?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US&page=1",
     searchTerm = "";
     setPagination(1);
     masterResults("1", "popularTV");
@@ -319,7 +319,7 @@ function writeUserData(userId, id, title, img) {
 function castMemberDetails(name){
     $( ".modalClose" ).click();
     searchTerm = name;
-    searchUrl = "http://api.themoviedb.org/3/search/person?api_key=f0db803d9d2c162e59c5e507925d8caa&language=en-US&query=";
+    searchUrl = "http://api.themoviedb.org/3/search/person?api_key=b64325c8580376f674705f28d7f0d1fe&language=en-US&query=";
     masterResults("1", "person");
 }
 
